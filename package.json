@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "start": "npx webpack --watch --watch-poll",
+    "firefox": "cd ./dist && npx web-ext run"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.91",
+    "@types/mousetrap": "^1.6.3",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.0",
+    "style-loader": "^1.1.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "web-ext": "^4.0.0",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "mousetrap": "^1.6.3",
+    "mousetrap-global-bind": "^1.1.0"
+  }
+}

@@ -1,0 +1,23 @@
+#main {
+    max-width: 400px;
+    min-width: 500px;
+    margin: 0 auto;
+    padding: 40px 0 120px;
+}
+#main > p {
+    text-align: center;
+}
+fieldset {
+    margin: 0 10px 24px;
+}
+fieldset > p {
+    margin: 0;
+    padding: 0 0 0 8px;
+}
+fieldset div {
+    clear: both;
+    margin: 14px 10px;
+}
+fieldset span {
+    float: right;
+}

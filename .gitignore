@@ -1,0 +1,11 @@
+
+*.xpi
+*.zip
+*.pem
+*.crx
+
+*.txt
+
+images/
+dist/
+node_modules/

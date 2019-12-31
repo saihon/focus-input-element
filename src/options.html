@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Options</title>
+</head>
+
+<body>
+  <div id="main">
+    <p>
+      Use this option page to try out the behavior of the changed.
+    </p>
+    <br>
+
+    <form name="settings">
+      <fieldset>
+        <legend>Focus on closest elements</legend>
+        <p>This behavior is useful when you found an input element on a page scrolled.</p>
+        <div>
+          <label><input type="checkbox" name="nearest" id="">Enabled</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Shortcut keys</legend>
+        <p>"ctrl+y" means press CTRL and y key simultaneously.</p>
+        <p>More about keys details: <a href="https://craig.is/killing/mice">Mousetrap</a></p>
+        <p>If you specify an empty value, can disabled it's action.</p>
+        <div>Focus next: <span><input type="text" name="next"></span></div>
+        <div>Focus previous: <span><input type="text" name="prev"></span></div>
+        <div>Remove focus: <span><input type="text" name="blur"></span></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Marks focused elements</legend>
+        <p>If you specify a value of 0 for "milliseconds", can disabled this effect.</p>
+        <div>Color: <span><input type="color" name="color" value="#ff0000"></span></div>
+        <div>Milliseconds: <span><input type="number" name="milliseconds"></span></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Scroll Options</legend>
+        <div>Behavior:
+          <span>
+            <select name="behavior">
+              <option value="auto">auto</option>
+              <option value="smooth">smooth</option>
+              <option value="instant">instant</option>
+            </select>
+          </span>
+        </div>
+
+        <div>Block:
+          <span>
+            <select name="block">
+              <option value="start">start</option>
+              <option value="center">center</option>
+              <option value="end">end</option>
+              <option value="nearest">nearest</option>
+            </select>
+          </span>
+        </div>
+
+        <div>Inline:
+          <span>
+            <select name="inline">
+              <option value="start">start</option>
+              <option value="center">center</option>
+              <option value="end">end</option>
+              <option value="nearest">nearest</option>
+            </select>
+          </span>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
+  <script src="js/options.bundle.js"></script>
+</body>
+
+
+</html>
