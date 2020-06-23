@@ -4,19 +4,19 @@
     "firefox": "cd ./dist && npx web-ext run"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.91",
+    "@types/chrome": "^0.0.116",
     "@types/mousetrap": "^1.6.3",
-    "copy-webpack-plugin": "^5.1.1",
-    "css-loader": "^3.4.0",
-    "style-loader": "^1.1.2",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.4",
-    "web-ext": "^4.0.0",
-    "webpack": "^4.41.4",
-    "webpack-cli": "^3.3.10"
+    "copy-webpack-plugin": "^6.0.2",
+    "css-loader": "^3.6.0",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
+    "web-ext": "^4.3.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "mousetrap": "^1.6.3",
+    "mousetrap": "^1.6.5",
     "mousetrap-global-bind": "^1.1.0"
   }
 }
