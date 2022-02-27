@@ -3,15 +3,14 @@
 // https://craig.is/killing/mice
 import Mousetrap from 'mousetrap';
 ; // global-bind must be import after Mousetrap
-import 'mousetrap-global-bind';
+import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
 import {ItemObject, StorageLocal} from './storageLocal';
 import {Finder} from './finder';
 import {Focus} from './focus';
 
-function bindCallback(items: ItemObject): (e: ExtendedKeyboardEvent,
-                                           combo: string) => any {
-    return (e: ExtendedKeyboardEvent, combo: string) => {
+function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
+    return (e: Event, combo: string) => {
         e.preventDefault();
 
         const settings = items.settings;
@@ -45,7 +44,7 @@ function bindCallback(items: ItemObject): (e: ExtendedKeyboardEvent,
 
         if (typeof element != 'undefined') {
             const focus = Focus.new(settings.scroll, settings.marks);
-            focus.to(element);
+            focus.on(element);
         }
     }
 }

@@ -69,7 +69,7 @@ export class Focus {
         return this.animationProperties;
     }
 
-    public to(element: HTMLElement): void {
+    public on(element: HTMLElement): void {
         element.focus();
         element.scrollIntoView(this.scrollOptions);
         if (this.marksOptions.milliseconds < 1) return;
