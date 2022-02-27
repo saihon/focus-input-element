@@ -25,7 +25,7 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
             if (active != null) {
                 (active as HTMLElement).blur();
             }
-            window.top.focus();
+            window.top?.focus();
             return;
         }
 

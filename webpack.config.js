@@ -2,7 +2,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const path       = require('path');
 
 module.exports = {
-    // watch : true,
     devtool : false,
     mode : 'development',
     entry : {
@@ -42,12 +41,26 @@ module.exports = {
     },
 
     plugins : [
-        new CopyPlugin(
-            [
-                {from : '*.json', to : '../', force : true},
-                {from : '*.html', to : '../', force : true},
-                {from : 'icons', to : '../icons'}
-            ],
-            {context : path.resolve(__dirname, 'src')}),
+        new CopyPlugin({
+            patterns : [
+                {
+                    from : '*.json',
+                    to : '../',
+                    force : true,
+                    context : path.resolve(__dirname, 'src')
+                },
+                {
+                    from : '*.html',
+                    to : '../',
+                    force : true,
+                    context : path.resolve(__dirname, 'src')
+                },
+                {
+                    from : 'icons',
+                    to : '../icons',
+                    context : path.resolve(__dirname, 'src')
+                }
+            ]
+        }),
     ]
 };
