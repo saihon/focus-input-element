@@ -23,7 +23,7 @@
     "webpack-cli": "4.9.2"
   },
   "dependencies": {
-    "mousetrap": "1.6.5",
+    "mousetrap": "^1.6.5",
     "mousetrap-global-bind": "^1.1.0"
   }
 }
