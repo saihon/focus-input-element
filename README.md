@@ -1,17 +1,20 @@
 # focus-input-element
 
-A browser extension that focuses on the next or previous HTML input element when the shortcut key is pressed.
+Overview:
+Press a shortcut key to focus on the input field on the web page.
 
-Default shortcut-keys:
-* Focus on the next input elements: F2
-* Focus on the previous input elements: Shift+F2
-* Remove focus: F4
+The default shortcut key:
+
+- Next input field: F2
+- Previous input field: Shift+F2
+- Unfocus: F4
 
 Feature:
-* Focus on the closest input element.
-* Marks the focused element.
 
-These can be changed on the Options page.
+- You can press it repeatedly to move to the next or previous field.
+- You can focus the closest input field in the active area.
+- You can check the location of the field with marker.
+- These settings can be changed on the Options page.
 
 <br/>
 
@@ -19,6 +22,9 @@ These can be changed on the Options page.
 
 Installation via ADD-ONS Mozilla  
 https://addons.mozilla.org/en-US/firefox/addon/focus-input-element/
+
+Installation via Chrome Web Store  
+https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbbcnckoojejiojgn
 
 <br/>
 
@@ -29,35 +35,39 @@ https://addons.mozilla.org/en-US/firefox/addon/focus-input-element/
 ### Build
 
 1. Download dependencides
-    ```
-    npm i
-    ```
+
+   ```
+   npm i
+   ```
 
 2. Run webpack
-    ```
-    npm run webpack
-    ```
 
-3. Build (pack to *.xip or *.zip)
-    ```
-    npm run build-all
-    ```
+   ```
+   npm run webpack
+   ```
+
+3. Build (pack to _.xip or _.zip)
+   ```
+   npm run build-all
+   ```
 
 <br/>
 
 ### Debug
 
-* Download dependencides
-    ```
-    npm i
-    ```
+- Download dependencides
 
-* Run webpack --watch
-    ```
-    npm run webpack-watch
-    ```
+  ```
+  npm i
+  ```
 
-* Debug (on FireFox)
-    ```
-    npm run debug
-    ```
+- Run webpack --watch
+
+  ```
+  npm run webpack-watch
+  ```
+
+- Debug (on FireFox)
+  ```
+  npm run debug
+  ```
