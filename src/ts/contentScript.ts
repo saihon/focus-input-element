@@ -5,19 +5,19 @@ import Mousetrap from 'mousetrap';
 ; // global-bind must be import after Mousetrap
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
 
-import {ItemObject, StorageLocal} from './storageLocal';
-import {Finder} from './finder';
-import {Focus} from './focus';
+import { ItemObject, StorageLocal } from './storageLocal';
+import { Finder } from './finder';
+import { Focus } from './focus';
 
 function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
     return (e: Event, combo: string) => {
         e.preventDefault();
 
         const settings = items.settings;
-        const keys     = settings.keys;
+        const keys = settings.keys;
 
         if (keys.blur == combo) {
-            const active    = document.activeElement;
+            const active = document.activeElement;
             const selection = window.getSelection();
             if (selection != null) {
                 selection.removeAllRanges();
@@ -30,7 +30,7 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
         }
 
         const finder = Finder.new(settings.nearest);
-        let element: HTMLElement|undefined;
+        let element: HTMLElement | undefined;
         if (keys.next == combo) {
             element = finder.getNextInputElement();
         } else if (keys.prev == combo) {
