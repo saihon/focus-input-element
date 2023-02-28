@@ -9,8 +9,7 @@ build: build-$(TARGET)
 build-all: build-firefox build-chrome
 
 build-firefox:
-	@cd ./dist && \
-	zip -r ../$(NAME).xpi icons js options.html manifest.json
+	@cd ./dist && zip -r ../$(NAME).xpi ./*
 
 build-chrome:
 	zip -r $(NAME).zip dist
