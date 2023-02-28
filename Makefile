@@ -17,7 +17,7 @@ build-chrome:
 
 # for source code submission
 source-code:
-	zip -r $(SRCZIP) ./src ./package.json ./tsconfig.json ./webpack.config.js
+	zip -r $(SRCZIP) zip -r source-code.zip ./src ./package.json ./tsconfig.json ./webpack.config.js ./README.md
 
 clean:
 	rm -rf ./dist ./node_modules $(SRCZIP) $(NAME).zip $(NAME).xpi
