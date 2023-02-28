@@ -3,7 +3,7 @@
     "webpack": "npx webpack",
     "webpack-watch": "npx webpack --watch",
     "debug": "cd ./dist && npx web-ext run -u 'about:debugging#/runtime/this-firefox'",
-    "clean": "rm -rf ./dist *.zip *.xpi",
+    "clean": "rm -rf ./node_modules ./dist *.zip *.xpi",
     "build-firefox": "cd ./dist && zip -r ../focus-input-element.xpi icons js index.html manifest.json",
     "build-chrome": "zip -r focus-input-element.zip ./dist",
     "build-all": "npm run build-firefox && npm run build-chrome",
