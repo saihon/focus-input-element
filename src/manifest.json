@@ -1,6 +1,6 @@
 {
   "name": "Focus input element",
-  "version": "1.1",
+  "version": "1.2",
   "description": "Focuses on the next or previous HTML input element when the shortcut key is pressed.",
   "icons": {
     "128": "icons/icon-128.png",
