@@ -1,6 +1,6 @@
 {
   "name": "Focus input element",
-  "version": "1.2",
+  "version": "1.2.1",
   "description": "Focuses on the next or previous HTML input element when the shortcut key is pressed.",
   "icons": {
     "128": "icons/icon-128.png",
@@ -8,24 +8,16 @@
     "19": "icons/icon-19.png",
     "16": "icons/icon-16.png"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "background": {
-    "scripts": [
-      "js/background.bundle.js"
-    ]
+    "scripts": ["js/background.bundle.js"]
   },
   "content_scripts": [
     {
       "all_frames": true,
       "run_at": "document_end",
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "js/contentScript.bundle.js"
-      ]
+      "matches": ["<all_urls>"],
+      "js": ["js/contentScript.bundle.js"]
     }
   ],
   "options_ui": {
