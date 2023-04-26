@@ -34,19 +34,19 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
 
 ### Build
 
-1. Download dependencides
+- Download dependencides
 
    ```
    npm i
    ```
 
-2. Build for FireFox
+- Build for FireFox
 
    ```
    npm run build-firefox
    ```
 
-2. Build for Chrome
+- Build for Chrome
    ```
    npm run build-chrome
    ```
