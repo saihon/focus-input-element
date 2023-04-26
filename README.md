@@ -40,15 +40,15 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
    npm i
    ```
 
-2. Run webpack
+2. Build for FireFox
 
    ```
-   npm run webpack
+   npm run build-firefox
    ```
 
-3. Build (pack to _.xip or _.zip)
+2. Build for Chrome
    ```
-   npm run build-all
+   npm run build-chrome
    ```
 
 <br/>
@@ -64,10 +64,10 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
 - Run webpack --watch
 
   ```
-  npm run webpack-watch
+  npx webpack --watch
   ```
 
-- Debug (on FireFox)
+- Debugging (on FireFox)
   ```
   npm run debug
   ```

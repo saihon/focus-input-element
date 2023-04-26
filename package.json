@@ -1,13 +1,13 @@
 {
   "scripts": {
     "webpack": "npx webpack",
-    "webpack-watch": "npx webpack --watch",
-    "debug": "cd ./dist && npx web-ext run -u 'about:debugging#/runtime/this-firefox'",
-    "start": "npx web-ext run -s ./dist --firefox=/snap/firefox/current/usr/lib/firefox/firefox -u 'about:debugging#/runtime/this-firefox'",
+    "debug": "npx web-ext run -s ./dist --firefox=/snap/firefox/current/usr/lib/firefox/firefox -u 'about:debugging#/runtime/this-firefox'",
     "clean": "rm -rf ./node_modules ./dist *.zip *.xpi",
-    "build-firefox": "cd ./dist && zip -r ../focus-input-element.xpi *",
-    "build-chrome": "zip -r ./focus-input-element.zip ./dist",
-    "build-all": "npm run build-firefox && npm run build-chrome",
+    "prepare": "rm -rf ./dist",
+    "prepare-firefox": "npm run prepare && rm -f *.xpi && npm run webpack && cp ./src/manifest-firefox.json ./dist/manifest.json",
+    "prepare-chrome": "npm run prepare && rm -f *.zip && npm run webpack && cp ./src/manifest-chrome.json ./dist/manifest.json",
+    "build-firefox": "npm run prepare-firefox && cd ./dist && zip -r ../focus-input-element.xpi *",
+    "build-chrome": "npm run prepare-chrome && zip -r ./focus-input-element.zip ./dist",
     "compress": "zip -r source-code.zip ./src ./package.json ./tsconfig.json ./webpack.config.js ./README.md",
     "test": "ts-node node_modules/jest/bin/jest.js"
   },

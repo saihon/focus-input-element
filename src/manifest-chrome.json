@@ -1,4 +1,5 @@
 {
+  "manifest_version": 3,
   "name": "Focus input element",
   "version": "1.2.1",
   "description": "Focuses on the next or previous HTML input element when the shortcut key is pressed.",
@@ -10,7 +11,7 @@
   },
   "permissions": ["storage"],
   "background": {
-    "scripts": ["js/background.bundle.js"]
+    "service_worker": "js/background.bundle.js"
   },
   "content_scripts": [
     {
@@ -21,9 +22,7 @@
     }
   ],
   "options_ui": {
-    "chrome_style": true,
     "open_in_tab": true,
     "page": "options.html"
-  },
-  "manifest_version": 2
+  }
 }
