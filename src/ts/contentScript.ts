@@ -1,13 +1,11 @@
-
 // https://github.com/ccampbell/mousetrap
 // https://craig.is/killing/mice
-import Mousetrap from 'mousetrap';
-; // global-bind must be import after Mousetrap
-import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
+import Mousetrap from "mousetrap"; // global-bind must be import after Mousetrap
+import "mousetrap/plugins/global-bind/mousetrap-global-bind";
 
-import { ItemObject, StorageLocal } from './storageLocal';
-import { Finder } from './finder';
-import { Focus } from './focus';
+import { ItemObject, StorageLocal } from "./storageLocal";
+import { Finder } from "./finder";
+import { Focus } from "./focus";
 
 function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
     return (e: Event, combo: string) => {
@@ -42,14 +40,14 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
         // console.log(e, combo);
         // console.log(element);
 
-        if (typeof element != 'undefined') {
+        if (typeof element != "undefined") {
             const focus = Focus.new(settings.scroll, settings.marks);
             focus.on(element);
         }
-    }
+    };
 }
 
-StorageLocal.get(items => {
+StorageLocal.get((items) => {
     Mousetrap.bindGlobal(ItemObject.shortcutKeys(items), bindCallback(items));
 });
 
