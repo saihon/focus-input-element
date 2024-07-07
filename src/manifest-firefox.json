@@ -10,9 +10,6 @@
     "16": "icons/icon-16.png"
   },
   "permissions": ["storage"],
-  "background": {
-    "scripts": ["js/background.bundle.js"]
-  },
   "content_scripts": [
     {
       "all_frames": true,

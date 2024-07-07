@@ -5,7 +5,6 @@ module.exports = {
   devtool: false,
   mode: "development",
   entry: {
-    background: path.resolve(__dirname, "src/ts/background.ts"),
     contentScript: path.resolve(__dirname, "src/ts/contentScript.ts"),
     options: path.resolve(__dirname, "src/ts/options.ts"),
   },

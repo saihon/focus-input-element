@@ -54,26 +54,21 @@ export class ItemObject {
 export class StorageLocal {
     protected static readonly KEY: string = "settings";
 
-    public static init() {
-        const initialize = (items: { [key: string]: any }) => {
-            if (
-                typeof items == "undefined" ||
-                !items.hasOwnProperty(StorageLocal.KEY)
-            ) {
-                StorageLocal.set(new ItemObject());
-            }
-        };
-        StorageLocal.get(initialize);
-    }
-
     public static set(items: ItemObject) {
         chrome.storage.local.set(items);
     }
 
     public static get(callback: (items: ItemObject) => void) {
-        chrome.storage.local.get(StorageLocal.KEY, (items) =>
-            callback(items as ItemObject)
-        );
+        chrome.storage.local.get(StorageLocal.KEY, (items) => {
+            if (
+                typeof items == "undefined" ||
+                !items.hasOwnProperty(StorageLocal.KEY)
+            ) {
+                items = new ItemObject();
+                chrome.storage.local.set(items);
+            }
+            callback(items as ItemObject);
+        });
     }
 
     private static onChangedCallback(callback: (items: ItemObject) => void) {
