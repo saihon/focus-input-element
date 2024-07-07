@@ -37,7 +37,7 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
 - Download dependencides
 
    ```
-   npm i
+   npm install
    ```
 
 - Build for FireFox
@@ -55,10 +55,10 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
 
 ### Debug
 
-- Download dependencides
+- Download dependencies
 
   ```
-  npm i
+  npm install
   ```
 
 - Run webpack --watch
@@ -67,7 +67,7 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
   npx webpack --watch
   ```
 
-- Debugging (on FireFox)
+- Debugging
   ```
-  npm run debug
+  npx web-ext run -s ./dist
   ```
