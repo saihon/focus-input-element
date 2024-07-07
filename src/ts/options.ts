@@ -37,7 +37,7 @@ const handleEvent = function (e: any) {
                     break;
                 case "milliseconds":
                 case "color":
-                    (items.settings.marks as any)[e.target.name] =
+                    (items.settings.marker as any)[e.target.name] =
                         e.target.value;
                     break;
                 case "behavior":
@@ -66,9 +66,9 @@ const onLoad = function (items: ItemObject) {
     form.blur.value = keys.blur;
 
     // marks options
-    const marks = items.settings.marks;
-    form.milliseconds.value = marks.milliseconds;
-    form.color.value = marks.color;
+    const marker = items.settings.marker;
+    form.milliseconds.value = marker.milliseconds;
+    form.color.value = marker.color;
 
     const indexOf = function (name: string, options: any): number {
         const l = options.length;

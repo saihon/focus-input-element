@@ -1,15 +1,12 @@
-import { MarksOptions } from "./storageLocal";
+import { MarkerOptions } from "./storageLocal";
 
-export class Focus {
-    private static instance: Focus;
-
-    private scrollOptions: ScrollIntoViewOptions;
-    private marksOptions: MarksOptions;
+export class Marker {
     private animationProperties: PropertyIndexedKeyframes = {
         opacity: ["0.8", "0"],
         width: ["10px", "20px", "50px", "20px", "80px"],
         height: ["10px", "20px", "50px", "20px", "80px"],
     };
+
     private readonly styles: { [k: string]: any } = {
         position: "absolute",
         zIndex: "1000000000",
@@ -19,26 +16,7 @@ export class Focus {
         borderRadius: "50%",
     };
 
-    private constructor(
-        scrollOptions: ScrollIntoViewOptions,
-        marksOptions: MarksOptions
-    ) {
-        this.scrollOptions = scrollOptions;
-        this.marksOptions = marksOptions;
-    }
-
-    public static new(
-        scrollOptions: ScrollIntoViewOptions,
-        marksOptions: MarksOptions
-    ) {
-        if (typeof Focus.instance === "undefined") {
-            Focus.instance = new Focus(scrollOptions, marksOptions);
-        } else {
-            Focus.instance.scrollOptions = scrollOptions;
-            Focus.instance.marksOptions = marksOptions;
-        }
-        return Focus.instance;
-    }
+    constructor(public options: MarkerOptions) {}
 
     private createElement(
         tagName: string,
@@ -51,7 +29,7 @@ export class Focus {
         }
         element.style.top = String(top) + "px";
         element.style.left = String(left) + "px";
-        (element.style.backgroundColor = this.marksOptions.color || "#ff5566"),
+        (element.style.backgroundColor = this.options.color || "#ff5566"),
             document.documentElement.appendChild(element);
         return element;
     }
@@ -77,10 +55,8 @@ export class Focus {
         return this.animationProperties;
     }
 
-    public on(element: HTMLElement): void {
-        element.focus();
-        element.scrollIntoView(this.scrollOptions);
-        if (this.marksOptions.milliseconds < 1) return;
+    public draw(element: HTMLElement) {
+        if (this.options.milliseconds < 1) return;
 
         const clientRect = element.getBoundingClientRect();
         const top = window.scrollY + clientRect.top;
@@ -90,11 +66,45 @@ export class Focus {
 
         let animation = div.animate(
             this.getAnimationProperties(top, left),
-            this.marksOptions.milliseconds
+            this.options.milliseconds
         );
 
         animation.addEventListener("finish", () =>
             document.documentElement.removeChild(div)
         );
+    }
+}
+
+export class Focus {
+    private static instance: Focus;
+
+    private scrollOptions: ScrollIntoViewOptions;
+    private marker: Marker;
+
+    private constructor(
+        scrollOptions: ScrollIntoViewOptions,
+        markerOptions: MarkerOptions
+    ) {
+        this.scrollOptions = scrollOptions;
+        this.marker = new Marker(markerOptions);
+    }
+
+    public static new(
+        scrollOptions: ScrollIntoViewOptions,
+        markerOptions: MarkerOptions
+    ) {
+        if (typeof Focus.instance === "undefined") {
+            Focus.instance = new Focus(scrollOptions, markerOptions);
+        } else {
+            Focus.instance.scrollOptions = scrollOptions;
+            Focus.instance.marker.options = markerOptions;
+        }
+        return Focus.instance;
+    }
+
+    public on(element: HTMLElement): void {
+        element.focus();
+        element.scrollIntoView(this.scrollOptions);
+        this.marker.draw(element);
     }
 }

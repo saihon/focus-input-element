@@ -1,4 +1,4 @@
-export type MarksOptions = {
+export type MarkerOptions = {
     milliseconds: number; // if this value 0, disabled marks effect
     color: string; // css backgroundColor
 };
@@ -10,7 +10,7 @@ export class ItemObject {
         // focus nearest element in active area or around
         nearest: boolean;
         // options. marks focused element
-        marks: MarksOptions;
+        marker: MarkerOptions;
         /*
           ScrollIntoViewOptions{
             behavior: 'auto' | 'instant' | 'smooth'
@@ -26,7 +26,7 @@ export class ItemObject {
             blur: "f4",
         },
         nearest: true,
-        marks: {
+        marker: {
             milliseconds: 700,
             color: "#ff5566",
         },
@@ -66,6 +66,19 @@ export class StorageLocal {
             ) {
                 items = new ItemObject();
                 chrome.storage.local.set(items);
+            } else {
+                // Temporary processing required due to name change
+                // and should to be removed in a future version.
+                // Current version 1.4
+                const settings = items[StorageLocal.KEY];
+                if (
+                    settings.hasOwnProperty("marks") &&
+                    !settings.hasOwnProperty("marker")
+                ) {
+                    items[StorageLocal.KEY].marker =
+                        items[StorageLocal.KEY].marks;
+                    chrome.storage.local.set(items);
+                }
             }
             callback(items as ItemObject);
         });

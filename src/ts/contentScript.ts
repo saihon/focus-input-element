@@ -41,7 +41,7 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
         // console.log(element);
 
         if (typeof element != "undefined") {
-            const focus = Focus.new(settings.scroll, settings.marks);
+            const focus = Focus.new(settings.scroll, settings.marker);
             focus.on(element);
         }
     };
