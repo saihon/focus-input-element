@@ -1,15 +1,18 @@
 export type MarkerOptions = {
-    milliseconds: number; // if this value 0, disabled marks effect
-    color: string; // css backgroundColor
+    milliseconds: number; // Appearance time. If this value is 0, disabled marker effect
+    color: string; // CSS backgroundColor
+    size: string; // ***Might implement*** Marker size.
 };
 
 export class ItemObject {
     settings: {
-        // shortcut key
+        // Each shortcut key.
         keys: { next: string; prev: string; blur: string };
-        // focus nearest element in active area or around
+        // Focus nearest element in active area or around.
         nearest: boolean;
-        // options. marks focused element
+        // ***Might implement*** Automatically focus the first input element when the page loads.
+        autofocus: boolean;
+        // Marker options
         marker: MarkerOptions;
         /*
           ScrollIntoViewOptions{
@@ -19,16 +22,18 @@ export class ItemObject {
         } */
         scroll: ScrollIntoViewOptions;
     } = {
-        // default settings
+        // Default settings
         keys: {
             next: "f2",
             prev: "shift+f2",
             blur: "f4",
         },
         nearest: true,
+        autofocus: false,
         marker: {
             milliseconds: 700,
             color: "#ff5566",
+            size: "10px",
         },
         scroll: {
             behavior: "smooth",
@@ -58,6 +63,27 @@ export class StorageLocal {
         chrome.storage.local.set(items);
     }
 
+    private static addOptions(items: any) {
+        // This is a temporary process that occurs when adding settings.
+        // Current version 1.4 and should to be removed in a future version.
+        let changed = false;
+
+        const o = items[StorageLocal.KEY];
+
+        if (o.hasOwnProperty("marks") && !o.hasOwnProperty("marker")) {
+            items[StorageLocal.KEY].marker = items[StorageLocal.KEY].marks;
+            items[StorageLocal.KEY].marker.size = "10px";
+            delete items[StorageLocal.KEY].marks;
+        }
+
+        if (!o.hasOwnProperty("autofocus")) {
+            items[StorageLocal.KEY].autofocus = false;
+        }
+
+        if (changed) chrome.storage.local.set(items);
+        return items;
+    }
+
     public static get(callback: (items: ItemObject) => void) {
         chrome.storage.local.get(StorageLocal.KEY, (items) => {
             if (
@@ -67,18 +93,7 @@ export class StorageLocal {
                 items = new ItemObject();
                 chrome.storage.local.set(items);
             } else {
-                // Temporary processing required due to name change
-                // and should to be removed in a future version.
-                // Current version 1.4
-                const settings = items[StorageLocal.KEY];
-                if (
-                    settings.hasOwnProperty("marks") &&
-                    !settings.hasOwnProperty("marker")
-                ) {
-                    items[StorageLocal.KEY].marker =
-                        items[StorageLocal.KEY].marks;
-                    chrome.storage.local.set(items);
-                }
+                items = StorageLocal.addOptions(items);
             }
             callback(items as ItemObject);
         });
