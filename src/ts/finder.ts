@@ -148,10 +148,7 @@ export class Finder {
         return false;
     }
 
-    private readonly ASCENDING: Symbol = Symbol(1);
-    private readonly DESCENDING: Symbol = Symbol(2);
-
-    private getInputElement(order: Symbol): HTMLElement | undefined {
+    private getInputFields(): InputField[] | undefined {
         const collection = document.body.getElementsByTagName(
             "*"
         ) as HTMLCollectionOf<HTMLElement>;
@@ -167,6 +164,17 @@ export class Finder {
 
         // Sort by absolute position.
         fields.sort(compareInputField);
+        return fields;
+    }
+
+    private readonly ASCENDING: Symbol = Symbol(1);
+    private readonly DESCENDING: Symbol = Symbol(2);
+
+    private getInputElement(order: Symbol): HTMLElement | undefined {
+        const fields = this.getInputFields();
+        if (typeof fields == "undefined") {
+            return;
+        }
 
         const activeElement = document.activeElement as HTMLElement;
         // for skipping until after an active element.
@@ -237,5 +245,17 @@ export class Finder {
 
     public getPrevInputElement(): HTMLElement | undefined {
         return this.getInputElement(this.DESCENDING);
+    }
+
+    public getFirstInputElement(): HTMLElement | undefined {
+        const fields = this.getInputFields();
+        if (typeof fields == "undefined") return;
+        return fields[0].element;
+    }
+
+    public getLastInputElement(): HTMLElement | undefined {
+        const fields = this.getInputFields();
+        if (typeof fields == "undefined") return;
+        return fields[fields.length - 1].element;
     }
 }

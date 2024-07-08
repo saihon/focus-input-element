@@ -7,6 +7,16 @@ import { ItemObject, StorageLocal } from "./storageLocal";
 import { Finder } from "./finder";
 import { Focus } from "./focus";
 
+function autofocus(items: ItemObject) {
+    const settings = items.settings;
+    const finder = Finder.new(settings.nearest);
+    if (settings.autofocus) {
+        const element = finder.getFirstInputElement();
+        if (typeof element == "undefined") return;
+        element.focus();
+    }
+}
+
 function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
     return (e: Event, combo: string) => {
         e.preventDefault();
@@ -29,12 +39,22 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
 
         const finder = Finder.new(settings.nearest);
         let element: HTMLElement | undefined;
-        if (keys.next == combo) {
-            element = finder.getNextInputElement();
-        } else if (keys.prev == combo) {
-            element = finder.getPrevInputElement();
-        } else {
-            return;
+
+        switch (combo) {
+            case keys.next:
+                element = finder.getNextInputElement();
+                break;
+            case keys.prev:
+                element = finder.getPrevInputElement();
+                break;
+            case keys.first:
+                element = finder.getFirstInputElement();
+                break;
+            case keys.last:
+                element = finder.getLastInputElement();
+                break;
+            default:
+                return;
         }
 
         // console.log(e, combo);
@@ -49,6 +69,7 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
 
 StorageLocal.get((items) => {
     Mousetrap.bindGlobal(ItemObject.shortcutKeys(items), bindCallback(items));
+    autofocus(items);
 });
 
 const onChangedCallback = (items: ItemObject) => {

@@ -28,6 +28,8 @@ const handleEvent = function (e: any) {
                 case "next":
                 case "prev":
                 case "blur":
+                case "first":
+                case "last":
                     (items.settings.keys as any)[e.target.name] = normalize(
                         e.target.value
                     );
@@ -35,8 +37,12 @@ const handleEvent = function (e: any) {
                 case "nearest":
                     items.settings.nearest = e.target.checked;
                     break;
+                case "autofocus":
+                    items.settings.autofocus = e.target.checked;
+                    break;
                 case "milliseconds":
                 case "color":
+                case "size":
                     (items.settings.marker as any)[e.target.name] =
                         e.target.value;
                     break;
@@ -58,17 +64,21 @@ const onLoad = function (items: ItemObject) {
 
     // nearest
     form.nearest.checked = items.settings.nearest;
+    form.autofocus.checked = items.settings.autofocus;
 
     // keys
     const keys = items.settings.keys;
     form.next.value = keys.next;
     form.prev.value = keys.prev;
     form.blur.value = keys.blur;
+    form.first.value = keys.first;
+    form.last.value = keys.last;
 
-    // marks options
+    // marker options
     const marker = items.settings.marker;
     form.milliseconds.value = marker.milliseconds;
     form.color.value = marker.color;
+    form.size.value = marker.size;
 
     const indexOf = function (name: string, options: any): number {
         const l = options.length;

@@ -3,8 +3,10 @@ import { MarkerOptions } from "./storageLocal";
 export class Marker {
     private animationProperties: PropertyIndexedKeyframes = {
         opacity: ["0.8", "0"],
-        width: ["10px", "20px", "50px", "20px", "80px"],
-        height: ["10px", "20px", "50px", "20px", "80px"],
+        // width: ["10px", "20px", "50px", "20px", "80px"],
+        // height: ["10px", "20px", "50px", "20px", "80px"],
+        // top: [],
+        // left: [],
     };
 
     private readonly styles: { [k: string]: any } = {
@@ -34,7 +36,7 @@ export class Marker {
         return element;
     }
 
-    private getAnimationProperties(
+    private makeAnimationProperties(
         top: number,
         left: number
     ): PropertyIndexedKeyframes {
@@ -45,6 +47,7 @@ export class Marker {
             String(top - 5) + "px",
             String(top - 30) + "px",
         ];
+
         this.animationProperties.left = [
             String(left) + "px",
             String(left - 5) + "px",
@@ -52,11 +55,22 @@ export class Marker {
             String(left - 5) + "px",
             String(left - 30) + "px",
         ];
+
+        const n = this.options.size;
+        const a = new Array(5);
+        let i = 0;
+        for (const x of [1, 2, 5, 2, 8]) {
+            a[i] = n * x + "px";
+            i++;
+        }
+        this.animationProperties.width = a;
+        this.animationProperties.height = a;
+
         return this.animationProperties;
     }
 
     public draw(element: HTMLElement) {
-        if (this.options.milliseconds < 1) return;
+        if (this.options.milliseconds < 1 || this.options.size < 1) return;
 
         const clientRect = element.getBoundingClientRect();
         const top = window.scrollY + clientRect.top;
@@ -65,7 +79,7 @@ export class Marker {
         let div = this.createElement("div", top, left);
 
         let animation = div.animate(
-            this.getAnimationProperties(top, left),
+            this.makeAnimationProperties(top, left),
             this.options.milliseconds
         );
 

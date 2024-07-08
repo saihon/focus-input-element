@@ -16,35 +16,72 @@
     <form name="settings">
       <fieldset>
         <legend>Focus on closest elements</legend>
-        <p>This behavior is useful when you found an input element on a page scrolled.</p>
+        <br>
+        <p>
+          This behavior is useful when you found an input element on a page scrolled.
+        </p>
+        <br>
         <div>
           <label><input type="checkbox" name="nearest" id="">Enabled</label>
         </div>
       </fieldset>
 
       <fieldset>
+        <legend>Autofocus</legend>
+        <br>
+        <p>
+          Focus the first input element when the page loads.
+        </p>
+        <br>
+        <div>
+          <label><input type="checkbox" name="autofocus" id="">Enabled</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
         <legend>Shortcut keys</legend>
-        <p>"ctrl+y" means press CTRL and y key simultaneously.</p>
-        <p>More about keys details: <a href="https://craig.is/killing/mice">Mousetrap</a></p>
-        <p>If you specify an empty value, can disabled it's action.</p>
-        <p>"Unfocus" is unlike "ESC" key, it activates the top frame of the page.</p>
+        <br>
+        <p>
+          "ctrl+y" means press CTRL and y key simultaneously.
+          More about keys details: <a href="https://craig.is/killing/mice">Mousetrap</a>.
+          If you specify an empty value, can disabled it's action.
+          "Unfocus" is unlike "ESC" key, it activates the top frame of the page.
+        </p>
+        <br>
         <div>Focus next: <span><input type="text" name="next"></span></div>
         <div>Focus previous: <span><input type="text" name="prev"></span></div>
         <div>Unfocus: <span><input type="text" name="blur"></span></div>
+        <br>
+        <p>
+          "Focus first" focuses on the first input element similarly, "Focus last" is the last.
+          These are useful if "Focus on closest" enabled.
+        </p>
+        <br>
+        <div>Focus first: <span><input type="text" name="first"></span></div>
+        <div>Focus last: <span><input type="text" name="last"></span></div>
       </fieldset>
 
       <fieldset>
         <legend>Marker options</legend>
-        <p>If you specify a value of 0 for "milliseconds", can disabled this effect.</p>
+        <br>
+        <p>
+          Specifying 0 for "Milliseconds" or "Size" disables marker effect.
+        </p>
+        <br>
         <div>Color: <span><input type="color" name="color" value="#ff0000"></span></div>
         <div>Milliseconds: <span><input type="number" name="milliseconds"></span></div>
+        <div>Size (pixel): <span><input type="number" name="size"></span></div>
       </fieldset>
 
       <fieldset>
         <legend>Scroll options</legend>
-        <p>"Behavior" is determine whether scrolling is instant or animates smoothly.</p>
-        <p>"Block" is the vertical alignment, where an input element will be when scroll.<p>
-        <p>Similarly, "Inline" is the horizontal alignment.</p>
+        <br>
+        <p>
+          "Behavior" is determine whether scrolling is instant or animates smoothly.
+          "Block" is the vertical alignment, where an input element will be when scroll.
+          Similarly, "Inline" is the horizontal alignment.
+        </p>
+        <br>
         <div>Behavior:
           <span>
             <select name="behavior">

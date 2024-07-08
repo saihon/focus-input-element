@@ -1,16 +1,22 @@
 export type MarkerOptions = {
     milliseconds: number; // Appearance time. If this value is 0, disabled marker effect
     color: string; // CSS backgroundColor
-    size: string; // ***Might implement*** Marker size.
+    size: number; // Marker size.
 };
 
 export class ItemObject {
     settings: {
         // Each shortcut key.
-        keys: { next: string; prev: string; blur: string };
+        keys: {
+            next: string;
+            prev: string;
+            blur: string;
+            first: string;
+            last: string;
+        };
         // Focus nearest element in active area or around.
         nearest: boolean;
-        // ***Might implement*** Automatically focus the first input element when the page loads.
+        // Automatically focus the first input element when the page loads.
         autofocus: boolean;
         // Marker options
         marker: MarkerOptions;
@@ -27,13 +33,15 @@ export class ItemObject {
             next: "f2",
             prev: "shift+f2",
             blur: "f4",
+            first: "",
+            last: "",
         },
         nearest: true,
         autofocus: false,
         marker: {
             milliseconds: 700,
             color: "#ff5566",
-            size: "10px",
+            size: 10,
         },
         scroll: {
             behavior: "smooth",
@@ -66,18 +74,32 @@ export class StorageLocal {
     private static addOptions(items: any) {
         // This is a temporary process that occurs when adding settings.
         // Current version 1.4 and should to be removed in a future version.
+
         let changed = false;
 
         const o = items[StorageLocal.KEY];
 
         if (o.hasOwnProperty("marks") && !o.hasOwnProperty("marker")) {
             items[StorageLocal.KEY].marker = items[StorageLocal.KEY].marks;
-            items[StorageLocal.KEY].marker.size = "10px";
+            items[StorageLocal.KEY].marker.size = 10;
             delete items[StorageLocal.KEY].marks;
+        }
+
+        if (typeof o.marker.size == "string") {
+            const m = o.marker.size.match(/^\d+/);
+            if (m != null) items[StorageLocal.KEY].marker.size = m[0] - 0; // string to number
         }
 
         if (!o.hasOwnProperty("autofocus")) {
             items[StorageLocal.KEY].autofocus = false;
+        }
+
+        if (
+            !o["keys"].hasOwnProperty("first") ||
+            !o["keys"].hasOwnProperty("last")
+        ) {
+            items[StorageLocal.KEY].keys["first"] = "";
+            items[StorageLocal.KEY].keys["last"] = "";
         }
 
         if (changed) chrome.storage.local.set(items);
