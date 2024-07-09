@@ -1,19 +1,24 @@
 # focus-input-element
 
 Overview:
-Press a shortcut key to focus on the input field on the web page.
 
-The default shortcut key:
+Pressing the shortcut key moves the cursor to the text box on the Web page.
 
-- Next input field: F2
-- Previous input field: Shift+F2
+
+The default shortcut keys:
+
+- Next input box: F2
+- Previous input box: Shift+F2
 - Unfocus: F4
+- First input box: Default unspecified
+- Last input box: Default unspecified
 
-Feature:
 
-- You can press it repeatedly to move to the next or previous field.
-- You can focus the closest input field in the active area.
-- You can check the location of the field with marker.
+Features:
+
+- Press the key repeatedly to move to the next or previous input box.
+- Focus is available on the nearest input box in the active area of the scrolled page.
+- Markers allow you to locate the input box.
 - These settings can be changed on the Options page.
 
 <br/>
@@ -34,7 +39,7 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
 
 ### Build
 
-- Download dependencides
+- Download dependencies
 
    ```
    npm install
@@ -61,7 +66,7 @@ https://chrome.google.com/webstore/detail/focus-input-element/pehdagiekdjhnojgbb
   npm install
   ```
 
-- Run webpack --watch
+- Run webpack
 
   ```
   npx webpack --watch
