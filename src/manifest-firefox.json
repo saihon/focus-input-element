@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Focus input element",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Focuses on the next or previous HTML input element when the shortcut key is pressed.",
   "browser_specific_settings": {
     "gecko": {
       "id": "{8221b638-0d82-43e0-a040-0e19dc0397d7}",
-      "strict_min_version": "114.0"
+      "strict_min_version": "109"
     }
   },
   "icons": {
