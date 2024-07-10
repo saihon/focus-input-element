@@ -4,9 +4,9 @@ export class FocusableElement {
         this.domRect = element.getBoundingClientRect();
     }
 
-    public activate() {
+    public activate(preventScroll: boolean = false) {
         // preventScroll is set to true, the browser will not scroll until the element into view after focus.
-        this.element.focus({ preventScroll: true });
+        this.element.focus({ preventScroll: preventScroll });
     }
 
     public isActive(): boolean {

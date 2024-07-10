@@ -14,7 +14,8 @@ function autofocus(items: ItemObject) {
     if (settings.autofocus) {
         const element = finder.getFirstFocusableElement();
         if (typeof element == "undefined") return;
-        element.activate();
+        const preventScroll = true;
+        element.activate(preventScroll);
     }
 }
 
