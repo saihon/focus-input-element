@@ -1,19 +1,5 @@
-type InputField = {
-    element: HTMLElement;
-    domRect: DOMRect;
-};
-
-// To sort founded input elements according to position.
-const compareInputField = (a: InputField, b: InputField): number => {
-    const aY = window.scrollY + a.domRect.top;
-    const bY = window.scrollY + b.domRect.top;
-    if (aY == bY) {
-        const aX = window.scrollX + a.domRect.left;
-        const bX = window.scrollX + b.domRect.left;
-        return aX > bX ? 1 : -1;
-    }
-    return aY > bY ? 1 : -1;
-};
+import { extractors } from "./extractor/_extractors";
+import { FocusableElement } from "./focusableElement";
 
 export class Finder {
     private static instance: Finder;
@@ -73,7 +59,9 @@ export class Finder {
     }
 
     // verify that the element is visible, including the parent element.
-    private isVisible(element: HTMLElement, domRect: DOMRect): boolean {
+    private isVisible(element: HTMLElement): boolean {
+        const domRect = element.getBoundingClientRect();
+
         let _element = element;
 
         // elements not intended to be displayed
@@ -148,31 +136,54 @@ export class Finder {
         return false;
     }
 
-    private getInputFields(): InputField[] | undefined {
+    // A callback function for sorting.
+    // Sort the found focusable elements according to their absolute position.
+    compareFocusableElement(a: FocusableElement, b: FocusableElement): number {
+        const aY = window.scrollY + a.domRect.top;
+        const bY = window.scrollY + b.domRect.top;
+        if (aY == bY) {
+            const aX = window.scrollX + a.domRect.left;
+            const bX = window.scrollX + b.domRect.left;
+            return aX > bX ? 1 : -1;
+        }
+        return aY > bY ? 1 : -1;
+    }
+
+    private getFocusableElementAll(): FocusableElement[] | undefined {
+        let focusableCollection: FocusableElement[] = [];
+
+        const rawUrl = location.toString();
+        for (const extractor of extractors) {
+            if (extractor.matches.test(rawUrl)) {
+                const a = extractor.extract();
+                if (typeof a != "undefined") {
+                    focusableCollection = focusableCollection.concat(a);
+                }
+            }
+        }
+
         const collection = document.body.getElementsByTagName(
             "*"
         ) as HTMLCollectionOf<HTMLElement>;
 
-        const fields: InputField[] = [];
         for (const element of collection) {
-            const domRect = element.getBoundingClientRect();
-            if (this.isEditable(element) && this.isVisible(element, domRect)) {
-                fields.push({ element: element, domRect: domRect });
+            if (this.isEditable(element) && this.isVisible(element)) {
+                focusableCollection.push(new FocusableElement(element));
             }
         }
-        if (fields.length == 0) return;
+        if (focusableCollection.length == 0) return;
 
         // Sort by absolute position.
-        fields.sort(compareInputField);
-        return fields;
+        focusableCollection.sort(this.compareFocusableElement);
+        return focusableCollection;
     }
 
     private readonly ASCENDING: Symbol = Symbol(1);
     private readonly DESCENDING: Symbol = Symbol(2);
 
-    private getInputElement(order: Symbol): HTMLElement | undefined {
-        const fields = this.getInputFields();
-        if (typeof fields == "undefined") {
+    private getFocusableElement(order: Symbol): FocusableElement | undefined {
+        const focusableCollection = this.getFocusableElementAll();
+        if (typeof focusableCollection == "undefined") {
             return;
         }
 
@@ -181,16 +192,16 @@ export class Finder {
         let skip = this.isEditable(activeElement);
 
         if (skip) {
-            const domRect = activeElement.getBoundingClientRect();
-            skip = this.isVisible(activeElement, domRect);
+            skip = this.isVisible(activeElement);
             if (skip && this.nearest) {
+                const domRect = activeElement.getBoundingClientRect();
                 skip = this.inActiveArea(domRect);
             }
         }
 
         // set initial index number and additional values
         // in ascending or descending order
-        const l = fields.length;
+        const l = focusableCollection.length;
         let a, i: number;
         switch (order) {
             case this.ASCENDING:
@@ -205,33 +216,31 @@ export class Finder {
                 return;
         }
 
-        // first found input element
-        let firstElement: HTMLElement | undefined;
+        // first found focusable element
+        let firstElement: FocusableElement | undefined;
 
         for (; i >= 0 && i < l; i += a) {
-            const field: InputField = fields[i];
-            const element = field.element;
-            const domRect = field.domRect;
+            const focusableElement: FocusableElement = focusableCollection[i];
 
             if (skip == false) {
                 if (this.nearest) {
                     // element in or closest to the active area
                     if (
-                        this.inActiveArea(domRect) ||
-                        this.pastActiveArea(domRect, order)
+                        this.inActiveArea(focusableElement.domRect) ||
+                        this.pastActiveArea(focusableElement.domRect, order)
                     ) {
-                        return element;
+                        return focusableElement;
                     }
                 } else {
-                    return element;
+                    return focusableElement;
                 }
             }
 
             if (typeof firstElement == "undefined") {
-                firstElement = element;
+                firstElement = focusableElement;
             }
 
-            if (skip == true && activeElement == element) {
+            if (skip == true && focusableElement.isActive()) {
                 skip = false;
             }
         }
@@ -239,23 +248,23 @@ export class Finder {
         return firstElement;
     }
 
-    public getNextInputElement(): HTMLElement | undefined {
-        return this.getInputElement(this.ASCENDING);
+    public getNextFocusableElement(): FocusableElement | undefined {
+        return this.getFocusableElement(this.ASCENDING);
     }
 
-    public getPrevInputElement(): HTMLElement | undefined {
-        return this.getInputElement(this.DESCENDING);
+    public getPrevFocusableElement(): FocusableElement | undefined {
+        return this.getFocusableElement(this.DESCENDING);
     }
 
-    public getFirstInputElement(): HTMLElement | undefined {
-        const fields = this.getInputFields();
-        if (typeof fields == "undefined") return;
-        return fields[0].element;
+    public getFirstFocusableElement(): FocusableElement | undefined {
+        const focusableCollection = this.getFocusableElementAll();
+        if (typeof focusableCollection == "undefined") return;
+        return focusableCollection[0];
     }
 
-    public getLastInputElement(): HTMLElement | undefined {
-        const fields = this.getInputFields();
-        if (typeof fields == "undefined") return;
-        return fields[fields.length - 1].element;
+    public getLastFocusableElement(): FocusableElement | undefined {
+        const focusableCollection = this.getFocusableElementAll();
+        if (typeof focusableCollection == "undefined") return;
+        return focusableCollection[focusableCollection.length - 1];
     }
 }

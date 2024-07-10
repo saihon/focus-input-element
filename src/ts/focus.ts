@@ -1,3 +1,4 @@
+import { FocusableElement } from "./focusableElement";
 import { MarkerOptions } from "./storageLocal";
 
 export class Marker {
@@ -69,12 +70,11 @@ export class Marker {
         return this.animationProperties;
     }
 
-    public draw(element: HTMLElement) {
+    public draw(domRect: DOMRect) {
         if (this.options.milliseconds < 1 || this.options.size < 1) return;
 
-        const clientRect = element.getBoundingClientRect();
-        const top = window.scrollY + clientRect.top;
-        const left = window.scrollX + clientRect.left;
+        const top = window.scrollY + domRect.top;
+        const left = window.scrollX + domRect.left;
 
         let div = this.createElement("div", top, left);
 
@@ -116,9 +116,9 @@ export class Focus {
         return Focus.instance;
     }
 
-    public on(element: HTMLElement): void {
-        element.focus();
+    public on(element: FocusableElement): void {
+        element.activate();
         element.scrollIntoView(this.scrollOptions);
-        this.marker.draw(element);
+        this.marker.draw(element.domRect);
     }
 }

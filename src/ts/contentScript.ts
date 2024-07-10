@@ -4,16 +4,17 @@ import Mousetrap from "mousetrap"; // global-bind must be import after Mousetrap
 import "mousetrap/plugins/global-bind/mousetrap-global-bind";
 
 import { ItemObject, StorageLocal } from "./storageLocal";
-import { Finder } from "./finder";
+import { FocusableElement } from "./focusableElement";
 import { Focus } from "./focus";
+import { Finder } from "./finder";
 
 function autofocus(items: ItemObject) {
     const settings = items.settings;
     const finder = Finder.new(settings.nearest);
     if (settings.autofocus) {
-        const element = finder.getFirstInputElement();
+        const element = finder.getFirstFocusableElement();
         if (typeof element == "undefined") return;
-        element.focus();
+        element.activate();
     }
 }
 
@@ -38,20 +39,20 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
         }
 
         const finder = Finder.new(settings.nearest);
-        let element: HTMLElement | undefined;
+        let element: FocusableElement | undefined;
 
         switch (combo) {
             case keys.next:
-                element = finder.getNextInputElement();
+                element = finder.getNextFocusableElement();
                 break;
             case keys.prev:
-                element = finder.getPrevInputElement();
+                element = finder.getPrevFocusableElement();
                 break;
             case keys.first:
-                element = finder.getFirstInputElement();
+                element = finder.getFirstFocusableElement();
                 break;
             case keys.last:
-                element = finder.getLastInputElement();
+                element = finder.getLastFocusableElement();
                 break;
             default:
                 return;
