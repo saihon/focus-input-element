@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Focus input element",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Focuses on the next or previous HTML input element when the shortcut key is pressed.",
   "icons": {
     "128": "icons/icon-128.png",
