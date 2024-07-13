@@ -1,7 +1,7 @@
 {
   "scripts": {
     "webpack": "npx webpack",
-    "debug": "npx web-ext run -s ./dist --firefox=/snap/firefox/current/usr/lib/firefox/firefox -u 'about:debugging#/runtime/this-firefox'",
+    "debug": "npx web-ext run -s ./dist -u 'about:debugging#/runtime/this-firefox' --firefox=/snap/firefox/current/usr/lib/firefox/firefox",
     "clean": "rm -rf ./node_modules ./dist *.zip *.xpi",
     "prepare": "rm -rf ./dist",
     "prepare-firefox": "npm run prepare && rm -f *.xpi && npm run webpack && cp ./src/manifest-firefox.json ./dist/manifest.json",
