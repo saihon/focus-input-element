@@ -18,6 +18,8 @@ export class ItemObject {
         nearest: boolean;
         // Automatically focus the first input element when the page loads.
         autofocus: boolean;
+        // If text is there when focused, select all it.
+        selectAll: boolean;
         // Marker options
         marker: MarkerOptions;
         /*
@@ -38,6 +40,7 @@ export class ItemObject {
         },
         nearest: true,
         autofocus: false,
+        selectAll: true,
         marker: {
             milliseconds: 700,
             color: "#ff5566",
@@ -92,6 +95,10 @@ export class StorageLocal {
 
         if (!o.hasOwnProperty("autofocus")) {
             items[StorageLocal.KEY].autofocus = false;
+        }
+
+        if (!o.hasOwnProperty("selectAll")) {
+            items[StorageLocal.KEY].selectAll = true;
         }
 
         if (

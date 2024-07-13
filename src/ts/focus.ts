@@ -89,36 +89,34 @@ export class Marker {
     }
 }
 
+export type FocusOptions = {
+    marker: MarkerOptions;
+    scroll: ScrollIntoViewOptions;
+    selectAll: boolean;
+};
+
 export class Focus {
     private static instance: Focus;
 
-    private scrollOptions: ScrollIntoViewOptions;
     private marker: Marker;
 
-    private constructor(
-        scrollOptions: ScrollIntoViewOptions,
-        markerOptions: MarkerOptions
-    ) {
-        this.scrollOptions = scrollOptions;
-        this.marker = new Marker(markerOptions);
+    private constructor(private options: FocusOptions) {
+        this.marker = new Marker(this.options.marker);
     }
 
-    public static new(
-        scrollOptions: ScrollIntoViewOptions,
-        markerOptions: MarkerOptions
-    ) {
+    public static new(options: FocusOptions) {
         if (typeof Focus.instance === "undefined") {
-            Focus.instance = new Focus(scrollOptions, markerOptions);
+            Focus.instance = new Focus(options);
         } else {
-            Focus.instance.scrollOptions = scrollOptions;
-            Focus.instance.marker.options = markerOptions;
+            Focus.instance.options = options;
+            Focus.instance.marker.options = options.marker;
         }
         return Focus.instance;
     }
 
     public on(element: FocusableElement): void {
-        element.activate();
-        element.scrollIntoView(this.scrollOptions);
+        element.activate(this.options.selectAll);
+        element.scrollIntoView(this.options.scroll);
         this.marker.draw(element.domRect);
     }
 }

@@ -5,7 +5,7 @@ import "mousetrap/plugins/global-bind/mousetrap-global-bind";
 
 import { ItemObject, StorageLocal } from "./storageLocal";
 import { FocusableElement } from "./focusableElement";
-import { Focus } from "./focus";
+import { Focus, FocusOptions } from "./focus";
 import { Finder } from "./finder";
 
 function autofocus(items: ItemObject) {
@@ -14,8 +14,7 @@ function autofocus(items: ItemObject) {
     if (settings.autofocus) {
         const element = finder.getFirstFocusableElement();
         if (typeof element == "undefined") return;
-        const preventScroll = true;
-        element.activate(preventScroll);
+        element.activate(settings.selectAll);
     }
 }
 
@@ -63,8 +62,12 @@ function bindCallback(items: ItemObject): (e: Event, combo: string) => any {
         // console.log(element);
 
         if (typeof element != "undefined") {
-            const focus = Focus.new(settings.scroll, settings.marker);
-            focus.on(element);
+            const focusOptions: FocusOptions = {
+                scroll: settings.scroll,
+                marker: settings.marker,
+                selectAll: settings.selectAll,
+            };
+            Focus.new(focusOptions).on(element);
         }
     };
 }

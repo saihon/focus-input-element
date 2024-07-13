@@ -40,6 +40,9 @@ const handleEvent = function (e: any) {
                 case "autofocus":
                     items.settings.autofocus = e.target.checked;
                     break;
+                case "selectAll":
+                    items.settings.selectAll = e.target.checked;
+                    break;
                 case "milliseconds":
                 case "color":
                 case "size":
@@ -65,6 +68,7 @@ const onLoad = function (items: ItemObject) {
     // nearest
     form.nearest.checked = items.settings.nearest;
     form.autofocus.checked = items.settings.autofocus;
+    form.selectAll.checked = items.settings.selectAll;
 
     // keys
     const keys = items.settings.keys;
