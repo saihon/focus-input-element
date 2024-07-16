@@ -138,7 +138,10 @@ export class Finder {
 
     // A callback function for sorting.
     // Sort the found focusable elements according to their absolute position.
-    compareFocusableElement(a: FocusableElement, b: FocusableElement): number {
+    private compareFocusableElement(
+        a: FocusableElement,
+        b: FocusableElement
+    ): number {
         const aY = window.scrollY + a.domRect.top;
         const bY = window.scrollY + b.domRect.top;
         if (aY == bY) {

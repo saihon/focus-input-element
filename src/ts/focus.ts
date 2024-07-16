@@ -70,9 +70,11 @@ export class Marker {
         return this.animationProperties;
     }
 
-    public draw(domRect: DOMRect) {
+    public draw(element: HTMLElement) {
         if (this.options.milliseconds < 1 || this.options.size < 1) return;
 
+        // Should get DOMRect after scrolling, so get it here.
+        const domRect = element.getBoundingClientRect();
         const top = window.scrollY + domRect.top;
         const left = window.scrollX + domRect.left;
 
@@ -114,9 +116,9 @@ export class Focus {
         return Focus.instance;
     }
 
-    public on(element: FocusableElement): void {
-        element.activate(this.options.selectAll);
-        element.scrollIntoView(this.options.scroll);
-        this.marker.draw(element.domRect);
+    public on(focusableElement: FocusableElement): void {
+        focusableElement.activate(this.options.selectAll);
+        focusableElement.scrollIntoView(this.options.scroll);
+        this.marker.draw(focusableElement.element);
     }
 }

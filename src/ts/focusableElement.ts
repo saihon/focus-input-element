@@ -1,6 +1,8 @@
 export class FocusableElement {
     public domRect: DOMRect;
-    constructor(private element: HTMLElement) {
+    public element: HTMLElement;
+    constructor(element: HTMLElement) {
+        this.element = element;
         this.domRect = element.getBoundingClientRect();
     }
 

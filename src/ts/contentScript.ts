@@ -11,10 +11,11 @@ import { Finder } from "./finder";
 function autofocus(items: ItemObject) {
     const settings = items.settings;
     const finder = Finder.new(settings.nearest);
+
     if (settings.autofocus) {
-        const element = finder.getFirstFocusableElement();
-        if (typeof element == "undefined") return;
-        element.activate(settings.selectAll);
+        const focusableElement = finder.getFirstFocusableElement();
+        if (typeof focusableElement == "undefined") return;
+        focusableElement.activate(settings.selectAll);
     }
 }
 
